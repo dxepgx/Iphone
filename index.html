@@ -39,11 +39,43 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 22px;
+            padding: 0 24px;
             color: #fff;
             font-size: 14px;
             font-weight: 600;
             z-index: 100;
+        }
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+        /* Realistic Battery Icon */
+        .battery-box {
+            width: 24px;
+            height: 11px;
+            border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 3px;
+            padding: 1px;
+            display: flex;
+            position: relative;
+        }
+        .battery-box::after {
+            content: '';
+            position: absolute;
+            right: -3px;
+            top: 3px;
+            width: 2px;
+            height: 4px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 0 1px 1px 0;
+        }
+        .battery-level {
+            width: 75%;
+            height: 100%;
+            background: #fff;
+            border-radius: 1px;
         }
 
         /* Dynamic Island */
@@ -57,15 +89,16 @@
             transform: translateX(-50%);
             top: 8px;
             z-index: 101;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
         /* Lock Screen */
         .lock-screen {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 90;
             display: flex;
             flex-direction: column;
@@ -80,35 +113,37 @@
         }
 
         .lock-time {
-            font-size: 76px;
+            font-size: 78px;
             font-weight: 700;
             letter-spacing: -2px;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         .lock-date {
             font-size: 18px;
             font-weight: 500;
+            opacity: 0.9;
         }
 
         .noti-card {
             width: 88%;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 22px;
             padding: 14px 18px;
-            margin-top: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.15);
         }
 
         /* App Grid */
         .app-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 22px 15px;
+            gap: 20px 14px;
             padding: 20px;
-            margin-top: 50px;
+            margin-top: 20px;
         }
 
         .app-item {
@@ -127,7 +162,7 @@
             justify-content: center;
             font-size: 30px;
             color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
             position: relative;
         }
 
@@ -136,7 +171,25 @@
             font-size: 11px;
             margin-top: 6px;
             font-weight: 500;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+        }
+
+        /* Badge Notification */
+        .badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #ff3b30;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(0,0,0,0.2);
         }
 
         /* Calendar Icon Style */
@@ -165,15 +218,16 @@
         .dock {
             width: 92%;
             height: 92px;
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.22);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
-            border-radius: 35px;
+            border-radius: 36px;
             margin: 0 auto 24px;
             display: flex;
             align-items: center;
             justify-content: space-around;
             padding: 0 10px;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         /* Home Indicator Bar */
@@ -187,6 +241,7 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 200;
+            cursor: pointer;
         }
 
         /* Full App Pages */
@@ -211,8 +266,10 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 16px;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
+            border-bottom: 1px solid rgba(255,255,255,0.12);
             font-weight: 600;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
         }
 
         /* Message App (Dark Mode) */
@@ -224,21 +281,29 @@
             padding: 16px;
             overflow-y: auto;
         }
+        .msg-date-header {
+            text-align: center;
+            color: #8e8e93;
+            font-size: 11px;
+            margin: 14px 0 8px;
+            font-weight: 500;
+        }
         .msg-profile {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            margin-top: 10px;
         }
         .msg-avatar {
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: #8e8e93;
+            background: #48484a;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 26px;
             margin-bottom: 6px;
         }
         .msg-bubble-left {
@@ -248,10 +313,10 @@
             padding: 10px 14px;
             border-radius: 18px;
             border-bottom-left-radius: 4px;
-            max-width: 75%;
+            max-width: 78%;
             font-size: 15px;
             line-height: 1.4;
-            margin-top: 8px;
+            margin-top: 6px;
         }
         .msg-bubble-right {
             align-self: flex-end;
@@ -260,14 +325,14 @@
             padding: 10px 14px;
             border-radius: 18px;
             border-bottom-right-radius: 4px;
-            max-width: 75%;
+            max-width: 78%;
             font-size: 15px;
             line-height: 1.4;
-            margin-top: 8px;
+            margin-top: 6px;
         }
         .msg-input-bar {
             margin-top: auto;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             background: #1c1c1e;
             border: 1px solid #38383a;
             border-radius: 20px;
@@ -297,6 +362,9 @@
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
+        }
+        .list-item:active {
+            background: rgba(255,255,255,0.05);
         }
 
         /* Calendar Grid */
@@ -350,6 +418,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 2px;
             padding: 2px;
+            overflow-y: auto;
         }
         .gallery-item {
             aspect-ratio: 1;
@@ -357,41 +426,58 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 26px;
         }
 
         /* Phone Tabs & Keypad */
         .tab-bar {
-            height: 50px;
-            border-top: 1px solid rgba(255,255,255,0.15);
+            height: 52px;
+            border-top: 1px solid rgba(255,255,255,0.12);
             display: flex;
             justify-content: space-around;
             align-items: center;
             background: #1c1c1e;
-            font-size: 11px;
+            font-size: 10px;
             color: #8e8e93;
+            padding-bottom: env(safe-area-inset-bottom);
         }
         .tab-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer;
+            position: relative;
         }
         .tab-item.active {
             color: #0a84ff;
         }
+        .tab-badge {
+            position: absolute;
+            top: -2px;
+            right: 4px;
+            background: #ff3b30;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         .keypad-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            padding: 20px 40px;
+            gap: 12px;
+            padding: 15px 35px;
             text-align: center;
         }
         .key-btn {
-            width: 65px;
-            height: 65px;
+            width: 62px;
+            height: 62px;
             border-radius: 50%;
-            background: #333;
+            background: #333335;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -408,7 +494,10 @@
     <div class="status-bar">
         <span id="time">10:24</span>
         <div class="dynamic-island"></div>
-        <span>5G 🔋80%</span>
+        <div class="status-icons">
+            <span>5G</span>
+            <div class="battery-box"><div class="battery-level"></div></div>
+        </div>
     </div>
 
     <!-- Lock Screen -->
@@ -416,17 +505,23 @@
         <div class="lock-date" id="lockDate">10월 25일 일요일</div>
         <div class="lock-time" id="lockTime">10:24</div>
         <div class="noti-card">
-            <div style="font-size: 12px; opacity: 0.8; margin-bottom:4px;">💬 메시지 • 방금 전</div>
+            <div style="font-size: 12px; opacity: 0.8; margin-bottom:4px; display:flex; justify-content:space-between;">
+                <span>💬 메시지 • 방금 전</span>
+                <span id="noti-count" style="background:#ff3b30; color:#fff; padding:0 6px; border-radius:10px; font-size:10px; font-weight:700;">2</span>
+            </div>
             <div style="font-weight: 600;">쿠죠 아키라</div>
-            <div style="font-size: 14px; margin-top: 2px;">하야시 군</div>
+            <div id="lock-noti-text" style="font-size: 14px; margin-top: 2px;">뭐 해?</div>
         </div>
-        <div style="margin-top: auto; margin-bottom: 35px; opacity: 0.8; font-size: 13px;">화면을 터치하여 잠금 해제</div>
+        <div style="margin-top: auto; margin-bottom: 35px; opacity: 0.7; font-size: 13px;">화면을 터치하여 잠금 해제</div>
     </div>
 
     <!-- Home Apps -->
     <div class="app-grid">
         <div class="app-item" onclick="openApp('msg')">
-            <div class="app-icon" style="background:#34C759;">💬</div>
+            <div class="app-icon" style="background:#34C759;">
+                💬
+                <div class="badge" id="home-badge-msg">2</div>
+            </div>
             <span class="app-label">메시지</span>
         </div>
         <div class="app-item" onclick="openApp('cal')">
@@ -449,10 +544,16 @@
     <!-- Dock -->
     <div class="dock">
         <div class="app-item" onclick="openApp('phone')">
-            <div class="app-icon" style="background:#30d158;">📞</div>
+            <div class="app-icon" style="background:#30d158;">
+                📞
+                <div class="badge" id="home-badge-phone">1</div>
+            </div>
         </div>
         <div class="app-item" onclick="openApp('msg')">
-            <div class="app-icon" style="background:#34C759;">💬</div>
+            <div class="app-icon" style="background:#34C759;">
+                💬
+                <div class="badge">2</div>
+            </div>
         </div>
         <div class="app-item" onclick="openApp('cal')">
             <div class="app-icon cal-icon">
@@ -470,14 +571,17 @@
         <!-- Message List Subview -->
         <div class="sub-view active" id="msg-list">
             <div class="app-header" style="color:#0a84ff;">
-                <span>편집</span>
+                <span onclick="goHome()" style="cursor:pointer; font-weight:normal;">＜ 홈</span>
                 <span style="color:#fff;">메시지</span>
                 <span>📝</span>
             </div>
             <div class="list-item" onclick="openMsgChat('akira')">
                 <div>
-                    <div style="font-weight:600;">쿠죠 아키라</div>
-                    <div style="font-size:13px; color:#8e8e93; margin-top:3px;">하야시 군</div>
+                    <div style="font-weight:600; display:flex; align-items:center; gap:6px;">
+                        쿠죠 아키라
+                        <span style="width:8px; height:8px; background:#0a84ff; border-radius:50%;"></span>
+                    </div>
+                    <div style="font-size:13px; color:#8e8e93; margin-top:3px;">뭐 해?</div>
                 </div>
                 <span style="font-size:12px; color:#8e8e93;">방금 전</span>
             </div>
@@ -488,12 +592,26 @@
                 </div>
                 <span style="font-size:12px; color:#8e8e93;">어제</span>
             </div>
+            <div class="list-item" onclick="openMsgChat('ad1')">
+                <div>
+                    <div style="font-weight:600;">[Web발신] 쿠팡</div>
+                    <div style="font-size:13px; color:#8e8e93; margin-top:3px;">[쿠팡] 고객님 주문하신 상품이 배송완료 되었습니다.</div>
+                </div>
+                <span style="font-size:12px; color:#8e8e93;">10월 23일</span>
+            </div>
+            <div class="list-item" onclick="openMsgChat('ad2')">
+                <div>
+                    <div style="font-weight:600;">[국제발신] Amazon</div>
+                    <div style="font-size:13px; color:#8e8e93; margin-top:3px;">Your verification code is 883921.</div>
+                </div>
+                <span style="font-size:12px; color:#8e8e93;">10월 20일</span>
+            </div>
         </div>
 
         <!-- Chat with Akira -->
         <div class="sub-view" id="msg-chat-akira">
             <div class="app-header" style="color:#0a84ff;">
-                <span onclick="showMsgList()">＜ 메시지</span>
+                <span onclick="showMsgList()" style="cursor:pointer;">＜ 메시지</span>
                 <span style="color:#fff;">쿠죠 아키라</span>
                 <span>ℹ️</span>
             </div>
@@ -502,14 +620,19 @@
                     <div class="msg-avatar">👤</div>
                     <div style="font-size: 16px; font-weight: 600;">쿠죠 아키라</div>
                 </div>
+                
+                <div class="msg-date-header">10월 24일</div>
                 <div class="msg-bubble-left">학교 근처에 새로 디저트집이 생겼대</div>
                 <div class="msg-bubble-right">봤습니다.</div>
                 <div class="msg-bubble-left">그게 끝?</div>
                 <div class="msg-bubble-right">네?</div>
+
+                <div class="msg-date-header">오늘</div>
                 <div class="msg-bubble-left">하야시 군</div>
+                <div class="msg-bubble-left">뭐 해?</div>
                 
                 <div class="msg-input-bar">
-                    <span>iMessage</span>
+                    <span>iMessage 입력</span>
                     <span style="background:#0a84ff; color:#fff; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px;">↑</span>
                 </div>
             </div>
@@ -518,7 +641,7 @@
         <!-- Chat with Father -->
         <div class="sub-view" id="msg-chat-father">
             <div class="app-header" style="color:#0a84ff;">
-                <span onclick="showMsgList()">＜ 메시지</span>
+                <span onclick="showMsgList()" style="cursor:pointer;">＜ 메시지</span>
                 <span style="color:#fff;">아버지</span>
                 <span>ℹ️</span>
             </div>
@@ -531,9 +654,33 @@
                 <div class="msg-bubble-right">죄송합니다.</div>
                 
                 <div class="msg-input-bar">
-                    <span>iMessage</span>
+                    <span>iMessage 입력</span>
                     <span style="background:#0a84ff; color:#fff; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px;">↑</span>
                 </div>
+            </div>
+        </div>
+
+        <!-- Ad 1 -->
+        <div class="sub-view" id="msg-chat-ad1">
+            <div class="app-header" style="color:#0a84ff;">
+                <span onclick="showMsgList()" style="cursor:pointer;">＜ 메시지</span>
+                <span style="color:#fff;">쿠팡</span>
+                <span>ℹ️</span>
+            </div>
+            <div class="msg-container">
+                <div class="msg-bubble-left">[쿠팡] 고객님 주문하신 상품이 배송완료 되었습니다. 문 앞 배송 완료.</div>
+            </div>
+        </div>
+
+        <!-- Ad 2 -->
+        <div class="sub-view" id="msg-chat-ad2">
+            <div class="app-header" style="color:#0a84ff;">
+                <span onclick="showMsgList()" style="cursor:pointer;">＜ 메시지</span>
+                <span style="color:#fff;">Amazon</span>
+                <span>ℹ️</span>
+            </div>
+            <div class="msg-container">
+                <div class="msg-bubble-left">Your verification code is 883921. Do not share this code with anyone.</div>
             </div>
         </div>
     </div>
@@ -542,25 +689,46 @@
     <div class="app-page" id="app-phone">
         <!-- Keypad Subview -->
         <div class="sub-view active" id="phone-keypad">
-            <div class="app-header"><span></span><span>키패드</span><span></span></div>
-            <div class="keypad-grid">
+            <div class="app-header">
+                <span onclick="goHome()" style="color:#0a84ff; cursor:pointer; font-weight:normal;">홈</span>
+                <span>키패드</span>
+                <span></span>
+            </div>
+            <div class="keypad-grid" style="margin-top:10px;">
                 <div class="key-btn">1</div><div class="key-btn">2</div><div class="key-btn">3</div>
                 <div class="key-btn">4</div><div class="key-btn">5</div><div class="key-btn">6</div>
                 <div class="key-btn">7</div><div class="key-btn">8</div><div class="key-btn">9</div>
                 <div class="key-btn">*</div><div class="key-btn">0</div><div class="key-btn">#</div>
             </div>
-            <div style="display:flex; justify-content:center; margin-top:5px;">
+            <div style="display:flex; justify-content:center; margin-top:10px;">
                 <div class="key-btn" style="background:#30d158; font-size:26px;">📞</div>
             </div>
         </div>
 
         <!-- Recents Subview -->
         <div class="sub-view" id="phone-recents">
-            <div class="app-header"><span></span><span>최근 통화</span><span></span></div>
+            <div class="app-header">
+                <span onclick="goHome()" style="color:#0a84ff; cursor:pointer; font-weight:normal;">홈</span>
+                <span>최근 통화</span>
+                <span>편집</span>
+            </div>
             <div class="list-item">
-                <div>
-                    <div style="font-weight:600; color:#ff453a;">아버지 (3)</div>
-                    <div style="font-size:12px; color:#8e8e93; margin-top:2px;">휴대전화</div>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <span style="color:#ff453a; font-size:18px;">↗</span>
+                    <div>
+                        <div style="font-weight:600; color:#ff453a;">쿠죠 아키라 (부재중)</div>
+                        <div style="font-size:12px; color:#8e8e93; margin-top:2px;">휴대전화</div>
+                    </div>
+                </div>
+                <span style="font-size:12px; color:#8e8e93;">방금 전</span>
+            </div>
+            <div class="list-item">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <span style="color:#ff453a; font-size:18px;">📞</span>
+                    <div>
+                        <div style="font-weight:600; color:#ff453a;">아버지 (3)</div>
+                        <div style="font-size:12px; color:#8e8e93; margin-top:2px;">휴대전화</div>
+                    </div>
                 </div>
                 <span style="font-size:12px; color:#8e8e93;">어제</span>
             </div>
@@ -568,7 +736,11 @@
 
         <!-- Contacts Subview -->
         <div class="sub-view" id="phone-contacts">
-            <div class="app-header"><span></span><span>연락처</span><span>➕</span></div>
+            <div class="app-header">
+                <span onclick="goHome()" style="color:#0a84ff; cursor:pointer; font-weight:normal;">홈</span>
+                <span>연락처</span>
+                <span>➕</span>
+            </div>
             <div class="list-item"><span style="font-weight:600;">아버지</span></div>
             <div class="list-item"><span style="font-weight:600;">어머니</span></div>
             <div class="list-item"><span style="font-weight:600;">쿠죠 아키라</span></div>
@@ -579,6 +751,7 @@
             <div class="tab-item" onclick="switchPhoneTab('recents')">
                 <span style="font-size:18px;">🕒</span>
                 <span>최근 통화</span>
+                <div class="tab-badge">1</div>
             </div>
             <div class="tab-item" onclick="switchPhoneTab('contacts')">
                 <span style="font-size:18px;">👤</span>
@@ -592,9 +765,9 @@
     </div>
 
     <!-- Calendar App -->
-    <div class="app-page" id="app-cal" onclick="goHome()">
+    <div class="app-page" id="app-cal">
         <div class="app-header" style="color:#ff453a;">
-            <span>＜ 2026년</span>
+            <span onclick="goHome()" style="cursor:pointer; font-weight:normal;">＜ 홈</span>
             <span style="color:#fff;">달력</span>
             <span>➕</span>
         </div>
@@ -630,9 +803,9 @@
     </div>
 
     <!-- Photos App (Gallery) -->
-    <div class="app-page" id="app-photos" onclick="goHome()">
+    <div class="app-page" id="app-photos">
         <div class="app-header">
-            <span>보관함</span>
+            <span onclick="goHome()" style="color:#0a84ff; cursor:pointer;">＜ 홈</span>
             <span>보관함 사진</span>
             <span>선택</span>
         </div>
@@ -643,13 +816,16 @@
             <div class="gallery-item">🌌</div>
             <div class="gallery-item">🐱</div>
             <div class="gallery-item">🐶</div>
+            <div class="gallery-item">🍕</div>
+            <div class="gallery-item">☕</div>
+            <div class="gallery-item">🚗</div>
         </div>
     </div>
 
     <!-- Notes App -->
-    <div class="app-page" id="app-notes" onclick="goHome()">
+    <div class="app-page" id="app-notes">
         <div class="app-header" style="color:#ffd60a;">
-            <span>＜ 폴더</span>
+            <span onclick="goHome()" style="cursor:pointer;">＜ 폴더</span>
             <span style="color:#fff;">메모</span>
             <span>📝</span>
         </div>
@@ -657,13 +833,13 @@
             <div class="list-item">
                 <div>
                     <div style="font-weight: 600;">역사 프린트 까먹지 말기</div>
-                    <div style="font-size: 13px; color: #8e8e93; margin-top: 4px;">10:24 AM • 메모</div>
+                    <div style="font-size: 13px; color: #8e8e93; margin-top: 4px;">10:24 AM • 개인 메모</div>
                 </div>
             </div>
             <div class="list-item">
                 <div>
                     <div style="font-weight: 600;">10/30 수행</div>
-                    <div style="font-size: 13px; color: #8e8e93; margin-top: 4px;">어제 • 메모</div>
+                    <div style="font-size: 13px; color: #8e8e93; margin-top: 4px;">어제 • 학교</div>
                 </div>
             </div>
         </div>
@@ -699,19 +875,16 @@
     }
 
     function showMsgList() {
-        event.stopPropagation();
         document.querySelectorAll('#app-msg .sub-view').forEach(v => v.classList.remove('active'));
         document.getElementById('msg-list').classList.add('active');
     }
 
     function openMsgChat(person) {
-        event.stopPropagation();
         document.querySelectorAll('#app-msg .sub-view').forEach(v => v.classList.remove('active'));
         document.getElementById(`msg-chat-${person}`).classList.add('active');
     }
 
     function switchPhoneTab(tab) {
-        event.stopPropagation();
         document.querySelectorAll('#app-phone .sub-view').forEach(v => v.classList.remove('active'));
         document.querySelectorAll('#app-phone .tab-item').forEach(t => t.classList.remove('active'));
         document.getElementById(`phone-${tab}`).classList.add('active');
@@ -720,5 +893,3 @@
 </script>
 </body>
 </html>
-
-

@@ -1008,6 +1008,8 @@
 
     setInterval(updateClock, 1000);
     updateClock();
+    
+    // 페이지 첫 로드시 오늘 기준 달력 초기화
     renderCalendar(currentViewDate);
 
     function unlock() {
@@ -1030,6 +1032,7 @@
             document.querySelectorAll('.badge-phone').forEach(b => b.style.display = 'none');
         }
         if(id === 'cal') {
+            // 달력 앱을 열 때마다 오늘 날짜 기준 달로 초기화
             currentViewDate = new Date();
             renderCalendar(currentViewDate);
         }

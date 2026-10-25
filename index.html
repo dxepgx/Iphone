@@ -33,15 +33,15 @@
             overflow: hidden;
         }
 
-        /* Status Bar (사진처럼 우측에 오후 11:48 배치 및 실제 배터리 아이콘) */
+        /* Status Bar */
         .status-bar {
             height: 48px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 24px;
             color: #fff;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
             z-index: 100;
         }
@@ -132,13 +132,14 @@
             border: 1px solid rgba(255,255,255,0.15);
         }
 
-        /* App Grid */
+        /* App Grid - 상단 배치 */
         .app-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px 14px;
-            padding: 20px;
-            margin-top: 20px;
+            gap: 16px 12px;
+            padding: 10px 20px;
+            align-self: flex-start;
+            width: 100%;
         }
 
         .app-item {
@@ -148,25 +149,125 @@
             cursor: pointer;
         }
 
+        /* 실제 앱 아이콘 스타일 (이모지 대체 및 입체 그래픽) */
         .app-icon {
-            width: 62px;
-            height: 62px;
-            border-radius: 16px;
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            color: white;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
             position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        /* 앱별 실제 디자인 그래픽 */
+        .icon-msg {
+            background: linear-gradient(to bottom, #34c759, #248a3d);
+        }
+        .icon-msg-inner {
+            width: 32px;
+            height: 24px;
+            background: #fff;
+            border-radius: 8px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .icon-msg-inner::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 8px;
+            border-width: 6px 6px 0;
+            border-style: solid;
+            border-color: #fff transparent;
+            display: block;
+            width: 0;
+        }
+
+        .icon-cal {
+            background: #fff;
+            flex-direction: column;
+            color: #000;
+        }
+        .cal-top {
+            background: #ff3b30;
+            width: 100%;
+            height: 16px;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+        }
+        .cal-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #1c1c1e;
+        }
+
+        .icon-photos {
+            background: linear-gradient(135deg, #f5af19, #f12711);
+        }
+        .icon-photos-inner {
+            width: 34px;
+            height: 26px;
+            background: #fff;
+            border-radius: 4px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .icon-photos-inner::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            right: 5px;
+            width: 6px;
+            height: 6px;
+            background: #ff9500;
+            border-radius: 50%;
+        }
+
+        .icon-notes {
+            background: #fdfdfd;
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px);
+            background-size: 100% 6px;
+            border: 1px solid #d1d1d6;
+        }
+        .icon-notes-lines {
+            width: 34px;
+            height: 38px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+        .note-line {
+            height: 2px;
+            background: #8e8e93;
+            border-radius: 1px;
+        }
+
+        .icon-phone {
+            background: linear-gradient(to bottom, #30d158, #248a3d);
         }
 
         .app-label {
             color: white;
             font-size: 11px;
-            margin-top: 6px;
+            margin-top: 5px;
             font-weight: 500;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.9);
         }
 
         .badge {
@@ -175,10 +276,10 @@
             right: -4px;
             background: #ff3b30;
             color: #fff;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -186,37 +287,15 @@
             border: 2px solid rgba(0,0,0,0.2);
         }
 
-        /* Calendar Icon Style */
-        .cal-icon {
-            background: #fff;
-            color: #000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .cal-day {
-            color: #ff3b30;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .cal-date {
-            font-size: 26px;
-            font-weight: 600;
-            line-height: 1;
-            color: #1c1c1e;
-        }
-
         /* Dock Bar */
         .dock {
             width: 92%;
-            height: 92px;
+            height: 85px;
             background: rgba(255, 255, 255, 0.22);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
-            border-radius: 36px;
-            margin: 0 auto 24px;
+            border-radius: 34px;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: space-around;
@@ -231,7 +310,7 @@
             background: #fff;
             border-radius: 3px;
             position: absolute;
-            bottom: 8px;
+            bottom: 6px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 200;
@@ -486,20 +565,20 @@
 <body>
 
 <div class="phone-screen">
-    <!-- Status Bar (사진처럼 우측에 '오후 11:48' 형식 배치) -->
+    <!-- Status Bar (실시간 현재 시간 반영) -->
     <div class="status-bar">
         <div class="status-left">
             <span>5G</span>
             <div class="battery-box"><div class="battery-level"></div></div>
         </div>
         <div class="dynamic-island"></div>
-        <span id="time" style="font-weight: 600;">오후 11:48</span>
+        <span id="time" style="font-weight: 600;">오후 12:32</span>
     </div>
 
     <!-- Lock Screen -->
     <div class="lock-screen" id="lockScreen" onclick="unlock()">
-        <div class="lock-date" id="lockDate">10월 25일 일요일</div>
-        <div class="lock-time" id="lockTime">11:48</div>
+        <div class="lock-date" id="lockDate">10월 26일 월요일</div>
+        <div class="lock-time" id="lockTime">12:32</div>
         <div class="noti-card">
             <div style="font-size: 12px; opacity: 0.8; margin-bottom:4px; display:flex; justify-content:space-between;">
                 <span>💬 메시지 • 방금 전</span>
@@ -511,28 +590,36 @@
         <div style="margin-top: auto; margin-bottom: 35px; opacity: 0.7; font-size: 13px;">화면을 터치하여 잠금 해제</div>
     </div>
 
-    <!-- Home Apps -->
+    <!-- Home Apps (맨 위 정렬 및 실제 앱 아이콘 UI 적용) -->
     <div class="app-grid">
         <div class="app-item" onclick="openApp('msg')">
-            <div class="app-icon" style="background:#34C759;">
-                💬
+            <div class="app-icon icon-msg">
+                <div class="icon-msg-inner"></div>
                 <div class="badge" id="home-badge-msg">2</div>
             </div>
             <span class="app-label">메시지</span>
         </div>
         <div class="app-item" onclick="openApp('cal')">
-            <div class="app-icon cal-icon">
-                <span class="cal-day">MON</span>
-                <span class="cal-date">30</span>
+            <div class="app-icon icon-cal">
+                <div class="cal-top">MON</div>
+                <div class="cal-body">30</div>
             </div>
             <span class="app-label">달력</span>
         </div>
         <div class="app-item" onclick="openApp('photos')">
-            <div class="app-icon" style="background: linear-gradient(135deg, #f5af19, #f12711);">🖼️</div>
+            <div class="app-icon icon-photos">
+                <div class="icon-photos-inner"></div>
+            </div>
             <span class="app-label">갤러리</span>
         </div>
         <div class="app-item" onclick="openApp('notes')">
-            <div class="app-icon" style="background:#ffd60a; color:#000;">📝</div>
+            <div class="app-icon icon-notes">
+                <div class="icon-notes-lines">
+                    <div class="note-line"></div>
+                    <div class="note-line"></div>
+                    <div class="note-line"></div>
+                </div>
+            </div>
             <span class="app-label">메모</span>
         </div>
     </div>
@@ -540,25 +627,27 @@
     <!-- Dock -->
     <div class="dock">
         <div class="app-item" onclick="openApp('phone')">
-            <div class="app-icon" style="background:#30d158;">
+            <div class="app-icon icon-phone" style="font-size:26px;">
                 📞
                 <div class="badge" id="home-badge-phone">1</div>
             </div>
         </div>
         <div class="app-item" onclick="openApp('msg')">
-            <div class="app-icon" style="background:#34C759;">
-                💬
+            <div class="app-icon icon-msg">
+                <div class="icon-msg-inner"></div>
                 <div class="badge">2</div>
             </div>
         </div>
         <div class="app-item" onclick="openApp('cal')">
-            <div class="app-icon cal-icon">
-                <span class="cal-day">MON</span>
-                <span class="cal-date">30</span>
+            <div class="app-icon icon-cal">
+                <div class="cal-top">MON</div>
+                <div class="cal-body">30</div>
             </div>
         </div>
         <div class="app-item" onclick="openApp('photos')">
-            <div class="app-icon" style="background: linear-gradient(135deg, #f5af19, #f12711);">🖼️</div>
+            <div class="app-icon icon-photos">
+                <div class="icon-photos-inner"></div>
+            </div>
         </div>
     </div>
 
@@ -827,7 +916,6 @@
         const el = document.getElementById(`app-${id}`);
         if(el) el.classList.add('active');
 
-        // 앱 진입 시 알림 배지 제거
         if(id === 'msg') {
             document.querySelectorAll('#home-badge-msg').forEach(b => b.style.display = 'none');
         }

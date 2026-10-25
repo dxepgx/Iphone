@@ -21,19 +21,20 @@
             overflow: hidden;
         }
 
+        /* 스마트폰 꽉 찬 화면 패널 */
         .phone-screen {
             width: 100vw;
             height: 100vh;
             height: 100dvh;
-            background: linear-gradient(135deg, #1e1e30, #2a085c, #0d1117);
-            background-size: cover;
+            background: linear-gradient(135deg, #2b1055, #7597de, #20002c);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            overflow: hidden;
         }
 
-        /* Dynamic Island & Status Bar */
+        /* Status Bar */
         .status-bar {
             height: 48px;
             display: flex;
@@ -46,6 +47,7 @@
             z-index: 100;
         }
 
+        /* Dynamic Island */
         .dynamic-island {
             width: 110px;
             height: 30px;
@@ -55,5 +57,251 @@
             left: 50%;
             transform: translateX(-50%);
             top: 8px;
-            z
+            z-index: 101;
+        }
 
+        /* Lock Screen */
+        .lock-screen {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 90;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 70px;
+            color: #fff;
+            transition: transform 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
+        }
+
+        .lock-screen.unlocked {
+            transform: translateY(-100%);
+        }
+
+        .lock-time {
+            font-size: 76px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-top: 10px;
+        }
+
+        .lock-date {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .noti-card {
+            width: 88%;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 14px 18px;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* App Grid */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px 15px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .app-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .app-icon {
+            width: 62px;
+            height: 62px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        .app-label {
+            color: white;
+            font-size: 11px;
+            margin-top: 6px;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+
+        /* Dock Bar */
+        .dock {
+            width: 92%;
+            height: 92px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 35px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 10px;
+        }
+
+        /* Home Indicator Bar */
+        .home-bar {
+            width: 135px;
+            height: 5px;
+            background: #fff;
+            border-radius: 3px;
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 200;
+        }
+
+        /* Full App Pages */
+        .app-page {
+            position: absolute;
+            inset: 0;
+            background: #fff;
+            z-index: 80;
+            display: none;
+            flex-direction: column;
+            padding-top: 48px;
+        }
+
+        .app-page.active {
+            display: flex;
+        }
+
+        .app-header {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-screen">
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <span id="time">10:24</span>
+        <div class="dynamic-island"></div>
+        <span>5G 🔋80%</span>
+    </div>
+
+    <!-- Lock Screen -->
+    <div class="lock-screen" id="lockScreen" onclick="unlock()">
+        <div class="lock-date" id="lockDate">10월 25일 일요일</div>
+        <div class="lock-time" id="lockTime">10:24</div>
+        <div class="noti-card">
+            <div style="font-size: 12px; opacity: 0.8; margin-bottom:4px;">💬 메시지 • 방금 전</div>
+            <div style="font-weight: 600;">김철수</div>
+            <div style="font-size: 14px; margin-top: 2px;">어디쯤이야? 다들 기다리는 중!</div>
+        </div>
+        <div style="margin-top: auto; margin-bottom: 35px; opacity: 0.8; font-size: 13px;">화면을 터치하여 잠금 해제</div>
+    </div>
+
+    <!-- Home Apps -->
+    <div class="app-grid">
+        <div class="app-item" onclick="openApp('msg')">
+            <div class="app-icon" style="background:#34C759;">💬</div>
+            <span class="app-label">메시지</span>
+        </div>
+        <div class="app-item" onclick="openApp('line')">
+            <div class="app-icon" style="background:#06C755;">🟢</div>
+            <span class="app-label">라인</span>
+        </div>
+        <div class="app-item" onclick="openApp('x')">
+            <div class="app-icon" style="background:#000;">𝕏</div>
+            <span class="app-label">X (트위터)</span>
+        </div>
+        <div class="app-item" onclick="openApp('photos')">
+            <div class="app-icon" style="background:#fff;">🖼️</div>
+            <span class="app-label">갤러리</span>
+        </div>
+    </div>
+
+    <!-- Dock -->
+    <div class="dock">
+        <div class="app-item" onclick="openApp('msg')">
+            <div class="app-icon" style="background:#34C759;">💬</div>
+        </div>
+        <div class="app-item" onclick="openApp('line')">
+            <div class="app-icon" style="background:#06C755;">🟢</div>
+        </div>
+        <div class="app-item">
+            <div class="app-icon" style="background:#007AFF;">🧭</div>
+        </div>
+        <div class="app-item">
+            <div class="app-icon" style="background:#8E8E93;">📷</div>
+        </div>
+    </div>
+
+    <!-- App Views -->
+    <div class="app-page" id="app-msg">
+        <div class="app-header"><span>＜ 대화</span><span>메시지</span><span>📝</span></div>
+        <div style="padding: 16px;">
+            <div style="padding: 12px; border-bottom: 1px solid #f0f0f0;">
+                <b>김철수</b>
+                <p style="color:#666; font-size: 14px; margin-top:4px;">어디쯤이야? 다들 기다리는 중!</p>
+            </div>
+            <div style="padding: 12px; border-bottom: 1px solid #f0f0f0;">
+                <b>이영희</b>
+                <p style="color:#666; font-size: 14px; margin-top:4px;">오늘 사진 잘 나왔더라!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-page" id="app-x">
+        <div class="app-header"><span></span><span><b>𝕏</b></span><span></span></div>
+        <div style="padding: 16px;">
+            <b>익명 유저</b> <span style="color:#888;">@user • 방금</span>
+            <p style="margin-top: 8px;">누군가의 아이폰을 그대로 구현해봄 ㅋㅋㅋ 진짜 똑같네</p>
+        </div>
+    </div>
+
+    <!-- Home Indicator -->
+    <div class="home-bar" onclick="goHome()"></div>
+</div>
+
+<script>
+    function updateClock() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        document.getElementById('time').innerText = `${h}:${m}`;
+        document.getElementById('lockTime').innerText = `${h}:${m}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function unlock() {
+        document.getElementById('lockScreen').classList.add('unlocked');
+    }
+
+    function goHome() {
+        document.querySelectorAll('.app-page').forEach(app => app.classList.remove('active'));
+    }
+
+    function openApp(id) {
+        goHome();
+        const el = document.getElementById(`app-${id}`);
+        if(el) el.classList.add('active');
+    }
+</script>
+</body>
+</html>

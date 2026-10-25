@@ -1,1 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>iPhone</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .phone-screen {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            background: linear-gradient(135deg, #1e1e30, #2a085c, #0d1117);
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        /* Dynamic Island & Status Bar */
+        .status-bar {
+            height: 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 22px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 100;
+        }
+
+        .dynamic-island {
+            width: 110px;
+            height: 30px;
+            background: #000;
+            border-radius: 20px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 8px;
+            z
 

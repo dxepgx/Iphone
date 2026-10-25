@@ -33,27 +33,27 @@
             overflow: hidden;
         }
 
-        /* Status Bar (오후 11:48 및 실제 배터리 표시) */
+        /* Status Bar (사진처럼 우측에 오후 11:48 배치 및 실제 배터리 아이콘) */
         .status-bar {
             height: 48px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 24px;
+            padding: 0 20px;
             color: #fff;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             z-index: 100;
         }
-        .status-icons {
+        .status-left {
             display: flex;
             align-items: center;
             gap: 6px;
             font-size: 12px;
         }
         .battery-box {
-            width: 24px;
-            height: 11px;
+            width: 22px;
+            height: 10px;
             border: 1px solid rgba(255,255,255,0.8);
             border-radius: 3px;
             padding: 1px;
@@ -64,7 +64,7 @@
             content: '';
             position: absolute;
             right: -3px;
-            top: 3px;
+            top: 2px;
             width: 2px;
             height: 4px;
             background: rgba(255,255,255,0.8);
@@ -79,14 +79,14 @@
 
         /* Dynamic Island */
         .dynamic-island {
-            width: 110px;
-            height: 30px;
+            width: 100px;
+            height: 28px;
             background: #000;
             border-radius: 20px;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            top: 8px;
+            top: 10px;
             z-index: 101;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
@@ -265,7 +265,7 @@
             backdrop-filter: blur(10px);
         }
 
-        /* Message App UI (Dark Mode & Real UI) */
+        /* Message App UI */
         .msg-container {
             flex: 1;
             background: #000;
@@ -486,20 +486,20 @@
 <body>
 
 <div class="phone-screen">
-    <!-- Status Bar (오후 11:48 고정 반영) -->
+    <!-- Status Bar (사진처럼 우측에 '오후 11:48' 형식 배치) -->
     <div class="status-bar">
-        <span>오후 11:48</span>
-        <div class="dynamic-island"></div>
-        <div class="status-icons">
+        <div class="status-left">
             <span>5G</span>
             <div class="battery-box"><div class="battery-level"></div></div>
         </div>
+        <div class="dynamic-island"></div>
+        <span id="time" style="font-weight: 600;">오후 11:48</span>
     </div>
 
     <!-- Lock Screen -->
     <div class="lock-screen" id="lockScreen" onclick="unlock()">
         <div class="lock-date" id="lockDate">10월 25일 일요일</div>
-        <div class="lock-time">11:48</div>
+        <div class="lock-time" id="lockTime">11:48</div>
         <div class="noti-card">
             <div style="font-size: 12px; opacity: 0.8; margin-bottom:4px; display:flex; justify-content:space-between;">
                 <span>💬 메시지 • 방금 전</span>
@@ -776,7 +776,7 @@
     <!-- Notes App -->
     <div class="app-page" id="app-notes">
         <div class="app-header" style="color:#ffd60a;">
-            <span onclick="goHome()" style="cursor:pointer;">＜ 메모</span>
+            <span onclick="goHome()" style="cursor:pointer;">＜ 폴더</span>
             <span style="color:#fff;">메모</span>
             <span>📝</span>
         </div>
@@ -801,6 +801,19 @@
 </div>
 
 <script>
+    function updateClock() {
+        const now = new Date();
+        let h = now.getHours();
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const ampm = h >= 12 ? '오후' : '오전';
+        h = h % 12;
+        h = h ? h : 12; 
+        document.getElementById('time').innerText = `${ampm} ${h}:${m}`;
+        document.getElementById('lockTime').innerText = `${String(now.getHours()).padStart(2, '0')}:${m}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
     function unlock() {
         document.getElementById('lockScreen').classList.add('unlocked');
     }
@@ -842,4 +855,3 @@
 </script>
 </body>
 </html>
-

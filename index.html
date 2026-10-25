@@ -32,7 +32,7 @@
             overflow: hidden;
         }
 
-        /* Status Bar (오후 시간은 왼쪽, 4G와 배터리는 오른쪽에서 배터리 왼쪽 옆에 4G 배치) */
+        /* Status Bar (왼쪽 시간, 오른쪽 4G와 배터리) */
         .status-bar {
             height: 48px;
             display: flex;
@@ -132,7 +132,7 @@
             border: 1px solid rgba(255,255,255,0.15);
         }
 
-        /* App Grid - 화면 맨 최상단 밀착 배치 */
+        /* App Grid - 화면 최상단 배치 */
         .app-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -451,15 +451,32 @@
             cursor: pointer;
         }
 
-        /* Calendar Grid */
+        /* Dynamic Calendar Grid UI */
         .calendar-container {
             padding: 16px;
             color: #fff;
+            flex: 1;
+            overflow-y: auto;
+        }
+        .cal-nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
         .cal-header-title {
             font-size: 24px;
             font-weight: 700;
-            margin-bottom: 15px;
+        }
+        .cal-nav-btn {
+            background: #1c1c1e;
+            color: #0a84ff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
         }
         .days-grid {
             display: grid;
@@ -479,6 +496,17 @@
             font-size: 15px;
             font-weight: 500;
         }
+        .date-cell.today-circle {
+            background: #ff3b30;
+            color: #fff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
         .has-event::after {
             content: '•';
             position: absolute;
@@ -489,7 +517,7 @@
             font-size: 18px;
         }
         .event-box {
-            margin-top: 30px;
+            margin-top: 25px;
             background: #1c1c1e;
             border-left: 4px solid #ff3b30;
             padding: 12px;
@@ -582,7 +610,7 @@
 <body>
 
 <div class="phone-screen">
-    <!-- Status Bar (왼쪽 시간, 오른쪽 4G와 배터리 - 배터리 왼쪽 옆에 4G 배치) -->
+    <!-- Status Bar (왼쪽 시간, 오른쪽 4G와 배터리) -->
     <div class="status-bar">
         <span id="time" style="font-weight: 600;">오후 1:13</span>
         <div class="dynamic-island"></div>
@@ -621,8 +649,8 @@
         <div class="app-item" onclick="openApp('cal')">
             <div class="app-icon icon-cal">
                 <div class="icon-content" style="flex-direction:column;">
-                    <div class="cal-top">MON</div>
-                    <div class="cal-body">30</div>
+                    <div class="cal-top" id="icon-cal-day">MON</div>
+                    <div class="cal-body" id="icon-cal-date">30</div>
                 </div>
             </div>
             <span class="app-label">달력</span>
@@ -668,8 +696,8 @@
         <div class="app-item" onclick="openApp('cal')">
             <div class="app-icon icon-cal">
                 <div class="icon-content" style="flex-direction:column;">
-                    <div class="cal-top">MON</div>
-                    <div class="cal-body">30</div>
+                    <div class="cal-top" id="dock-cal-day">MON</div>
+                    <div class="cal-body" id="dock-cal-date">30</div>
                 </div>
             </div>
         </div>
@@ -822,7 +850,7 @@
             <div class="tab-item" onclick="switchPhoneTab('recents')">
                 <span style="font-size:18px;">🕒</span>
                 <span>최근 통화</span>
-                <div class="tab-badge">1</div>
+                <div class="tab-badge badge-recents-tab">1</div>
             </div>
             <div class="tab-item" onclick="switchPhoneTab('contacts')">
                 <span style="font-size:18px;">👤</span>
@@ -835,7 +863,7 @@
         </div>
     </div>
 
-    <!-- Calendar App -->
+    <!-- Dynamic Calendar App -->
     <div class="app-page" id="app-cal">
         <div class="app-header" style="color:#ff453a;">
             <span onclick="goHome()" style="cursor:pointer; font-weight:normal; color:#0a84ff;">＜ 홈</span>
@@ -843,31 +871,16 @@
             <span>➕</span>
         </div>
         <div class="calendar-container">
-            <div class="cal-header-title">11월</div>
-            <div class="days-grid">
-                <div class="day-label" style="color:#ff3b30;">일</div>
-                <div class="day-label">월</div>
-                <div class="day-label">화</div>
-                <div class="day-label">수</div>
-                <div class="day-label">목</div>
-                <div class="day-label">금</div>
-                <div class="day-label">토</div>
-
-                <div class="date-cell" style="color:#ff3b30;">1</div>
-                <div class="date-cell">2</div><div class="date-cell">3</div><div class="date-cell">4</div><div class="date-cell">5</div><div class="date-cell">6</div><div class="date-cell">7</div>
-                <div class="date-cell" style="color:#ff3b30;">8</div>
-                <div class="date-cell">9</div><div class="date-cell">10</div><div class="date-cell">11</div><div class="date-cell">12</div><div class="date-cell">13</div><div class="date-cell">14</div>
-                <div class="date-cell" style="color:#ff3b30;">15</div>
-                <div class="date-cell">16</div><div class="date-cell">17</div><div class="date-cell">18</div><div class="date-cell">19</div><div class="date-cell">20</div><div class="date-cell">21</div>
-                <div class="date-cell" style="color:#ff3b30;">22</div>
-                <div class="date-cell">23</div><div class="date-cell">24</div><div class="date-cell">25</div><div class="date-cell">26</div><div class="date-cell">27</div><div class="date-cell">28</div>
-                <div class="date-cell" style="color:#ff3b30;">29</div>
-                <div class="date-cell has-event" style="font-weight:bold; color:#ff3b30;">30</div>
-                <div></div><div></div><div></div><div></div><div></div>
+            <div class="cal-nav-bar">
+                <div class="cal-header-title" id="cal-month-title">10월</div>
+                <button class="cal-nav-btn" onclick="nextCalendarMonth()">다음 달(11월) ＞</button>
+            </div>
+            <div class="days-grid" id="cal-grid-content">
+                <!-- 달력 날짜 그리드가 동적으로 생성됩니다 -->
             </div>
 
-            <div class="event-box">
-                <div style="font-size: 12px; color:#ff3b30; font-weight:bold;">11월 30일 (월)</div>
+            <div class="event-box" id="cal-event-box">
+                <div style="font-size: 12px; color:#ff3b30; font-weight:bold;" id="event-date-text">11월 30일 (월)</div>
                 <div style="font-size: 15px; font-weight:600; margin-top:4px;">생일</div>
             </div>
         </div>
@@ -921,6 +934,10 @@
 </div>
 
 <script>
+    const daysArr = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    const korDaysArr = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+    let currentViewDate = new Date();
+
     function updateClock() {
         const now = new Date();
         let h = now.getHours();
@@ -930,9 +947,70 @@
         h = h ? h : 12; 
         document.getElementById('time').innerText = `${ampm} ${h}:${m}`;
         document.getElementById('lockTime').innerText = `${String(now.getHours()).padStart(2, '0')}:${m}`;
+
+        // 잠금 화면 날짜 실시간 업데이트
+        const month = now.getMonth() + 1;
+        const date = now.getDate();
+        const dayStr = korDaysArr[now.getDay()];
+        document.getElementById('lockDate').innerText = `${month}월 ${date}일 ${dayStr}`;
+
+        // 달력 아이콘 실시간 반영
+        const dayCode = daysArr[now.getDay()];
+        document.getElementById('icon-cal-day').innerText = dayCode;
+        document.getElementById('icon-cal-date').innerText = date;
+        document.getElementById('dock-cal-day').innerText = dayCode;
+        document.getElementById('dock-cal-date').innerText = date;
     }
+
+    function renderCalendar(dateObj) {
+        const year = dateObj.getFullYear();
+        const month = dateObj.getMonth();
+        document.getElementById('cal-month-title').innerText = `${month + 1}월`;
+
+        const firstDay = new Date(year, month, 1).getDay();
+        const lastDate = new Date(year, month + 1, 0).getDate();
+        const today = new Date();
+
+        let html = `
+            <div class="day-label" style="color:#ff3b30;">일</div>
+            <div class="day-label">월</div>
+            <div class="day-label">화</div>
+            <div class="day-label">수</div>
+            <div class="day-label">목</div>
+            <div class="day-label">금</div>
+            <div class="day-label">토</div>
+        `;
+
+        for(let i = 0; i < firstDay; i++) {
+            html += `<div></div>`;
+        }
+
+        for(let d = 1; d <= lastDate; d++) {
+            const isToday = (today.getFullYear() === year && today.getMonth() === month && today.getDate() === d);
+            const isEvent = (month === 10 && d === 30); // 11월 30일 생일 이벤트
+            const dayOfWeek = new Date(year, month, d).getDay();
+            const colorStyle = dayOfWeek === 0 ? 'color:#ff3b30;' : '';
+
+            if (isToday) {
+                html += `<div class="date-cell"><div class="today-circle">${d}</div></div>`;
+            } else if (isEvent) {
+                html += `<div class="date-cell has-event" style="font-weight:bold; ${colorStyle}">${d}</div>`;
+            } else {
+                html += `<div class="date-cell" style="${colorStyle}">${d}</div>`;
+            }
+        }
+
+        document.getElementById('cal-grid-content').innerHTML = html;
+    }
+
+    function nextCalendarMonth() {
+        currentViewDate.setMonth(currentViewDate.getMonth() + 1);
+        renderCalendar(currentViewDate);
+    }
+
     setInterval(updateClock, 1000);
     updateClock();
+    renderCalendar(currentViewDate);
 
     function unlock() {
         document.getElementById('lockScreen').classList.add('unlocked');
@@ -953,6 +1031,10 @@
         if(id === 'phone') {
             document.querySelectorAll('.badge-phone').forEach(b => b.style.display = 'none');
         }
+        if(id === 'cal') {
+            currentViewDate = new Date();
+            renderCalendar(currentViewDate);
+        }
     }
 
     function showMsgList() {
@@ -970,8 +1052,12 @@
         document.querySelectorAll('#app-phone .tab-item').forEach(t => t.classList.remove('active'));
         document.getElementById(`phone-${tab}`).classList.add('active');
         event.currentTarget.classList.add('active');
+
+        // 최근 통화 탭 터치 시 탭 알림 배지 삭제
+        if(tab === 'recents') {
+            document.querySelectorAll('.badge-recents-tab').forEach(b => b.style.display = 'none');
+        }
     }
 </script>
 </body>
 </html>
-

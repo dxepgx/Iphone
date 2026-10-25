@@ -193,12 +193,13 @@
         .app-page {
             position: absolute;
             inset: 0;
-            background: #fff;
+            background: #000;
+            color: #fff;
             z-index: 80;
             display: none;
             flex-direction: column;
             padding-top: 48px;
-            cursor: pointer; /* 터치 시 홈으로 이동 안내 */
+            cursor: pointer;
         }
 
         .app-page.active {
@@ -211,14 +212,65 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 16px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
             font-weight: 600;
+        }
+
+        /* Message App (Dark Mode) */
+        .msg-container {
+            flex: 1;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+        }
+        .msg-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .msg-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #8e8e93;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        .msg-bubble-left {
+            align-self: flex-start;
+            background: #262628;
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            max-width: 75%;
+            font-size: 16px;
+            line-height: 1.4;
+            margin-top: 10px;
+        }
+        .msg-input-bar {
+            margin-top: auto;
+            margin-bottom: 20px;
+            background: #1c1c1e;
+            border: 1px solid #38383a;
+            border-radius: 20px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #8e8e93;
+            font-size: 14px;
         }
 
         /* Calendar Grid */
         .calendar-container {
             padding: 16px;
-            color: #000;
+            color: #fff;
         }
         .cal-header-title {
             font-size: 24px;
@@ -254,10 +306,53 @@
         }
         .event-box {
             margin-top: 30px;
-            background: #f2f2f7;
+            background: #1c1c1e;
             border-left: 4px solid #ff3b30;
             padding: 12px;
             border-radius: 8px;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            padding: 2px;
+        }
+        .gallery-item {
+            aspect-ratio: 1;
+            background: #2c2c2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        /* Phone Keypad */
+        .keypad-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 30px 40px;
+            text-align: center;
+        }
+        .key-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 auto;
+        }
+
+        /* Notes List */
+        .note-item {
+            padding: 14px 16px;
+            border-bottom: 1px solid #2c2c2e;
         }
     </style>
 </head>
@@ -289,10 +384,6 @@
             <div class="app-icon" style="background:#34C759;">💬</div>
             <span class="app-label">메시지</span>
         </div>
-        <div class="app-item" onclick="openApp('line')">
-            <div class="app-icon" style="background:#06C755;">🟢</div>
-            <span class="app-label">라인</span>
-        </div>
         <div class="app-item" onclick="openApp('cal')">
             <div class="app-icon cal-icon">
                 <span class="cal-day">MON</span>
@@ -304,15 +395,19 @@
             <div class="app-icon" style="background:#fff;">🖼️</div>
             <span class="app-label">갤러리</span>
         </div>
+        <div class="app-item" onclick="openApp('notes')">
+            <div class="app-icon" style="background:#ffd60a; color:#000;">📝</div>
+            <span class="app-label">메모</span>
+        </div>
     </div>
 
     <!-- Dock -->
     <div class="dock">
+        <div class="app-item" onclick="openApp('phone')">
+            <div class="app-icon" style="background:#30d158;">📞</div>
+        </div>
         <div class="app-item" onclick="openApp('msg')">
             <div class="app-icon" style="background:#34C759;">💬</div>
-        </div>
-        <div class="app-item" onclick="openApp('line')">
-            <div class="app-icon" style="background:#06C755;">🟢</div>
         </div>
         <div class="app-item" onclick="openApp('cal')">
             <div class="app-icon cal-icon">
@@ -320,31 +415,43 @@
                 <span class="cal-date">30</span>
             </div>
         </div>
-        <div class="app-item">
-            <div class="app-icon" style="background:#8E8E93;">📷</div>
+        <div class="app-item" onclick="openApp('photos')">
+            <div class="app-icon" style="background:#fff;">🖼️</div>
         </div>
     </div>
 
-    <!-- Message App (화면 아무데나 누르면 홈으로 복귀) -->
+    <!-- Message App (Dark Mode) -->
     <div class="app-page" id="app-msg" onclick="goHome()">
-        <div class="app-header"><span>＜ 대화</span><span>메시지</span><span>📝</span></div>
-        <div style="padding: 16px;">
-            <div style="padding: 14px 12px; border-bottom: 1px solid #f0f0f0;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <b>쿠죠 아키라</b>
-                    <span style="font-size: 12px; color: #8e8e93;">방금 전</span>
-                </div>
-                <p style="color:#3a3a3c; font-size: 15px; margin-top:6px;">하야시 군</p>
+        <div class="app-header" style="color:#0a84ff;">
+            <span>＜ 메시지</span>
+            <span style="color:#fff;">쿠죠 아키라</span>
+            <span>ℹ️</span>
+        </div>
+        <div class="msg-container">
+            <div class="msg-profile">
+                <div class="msg-avatar">👤</div>
+                <div style="font-size: 18px; font-weight: 600;">쿠죠 아키라</div>
+            </div>
+            <div style="text-align: center; color: #8e8e93; font-size: 12px; margin-bottom: 10px;">오늘 10:24 AM</div>
+            <div class="msg-bubble-left">하야시 군</div>
+            
+            <div class="msg-input-bar">
+                <span>iMessage</span>
+                <span style="background:#0a84ff; color:#fff; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px;">↑</span>
             </div>
         </div>
-        <div style="margin-top:auto; text-align:center; padding-bottom:30px; color:#8e8e93; font-size:12px;">
+        <div style="text-align:center; padding-bottom:20px; color:#8e8e93; font-size:12px;">
             화면을 터치하면 홈으로 돌아갑니다
         </div>
     </div>
 
-    <!-- Calendar App (화면 아무데나 누르면 홈으로 복귀) -->
+    <!-- Calendar App -->
     <div class="app-page" id="app-cal" onclick="goHome()">
-        <div class="app-header"><span>＜ 2026년</span><span>달력</span><span>➕</span></div>
+        <div class="app-header" style="color:#ff453a;">
+            <span>＜ 2026년</span>
+            <span style="color:#fff;">달력</span>
+            <span>➕</span>
+        </div>
         <div class="calendar-container">
             <div class="cal-header-title">11월</div>
             <div class="days-grid">
@@ -371,10 +478,77 @@
 
             <div class="event-box">
                 <div style="font-size: 12px; color:#ff3b30; font-weight:bold;">11월 30일 (월)</div>
-                <div style="font-size: 15px; font-weight:600; margin-top:4px;">기념일</div>
+                <div style="font-size: 15px; font-weight:600; margin-top:4px;">생일</div>
             </div>
         </div>
-        <div style="margin-top:auto; text-align:center; padding-bottom:30px; color:#8e8e93; font-size:12px;">
+        <div style="margin-top:auto; text-align:center; padding-bottom:20px; color:#8e8e93; font-size:12px;">
+            화면을 터치하면 홈으로 돌아갑니다
+        </div>
+    </div>
+
+    <!-- Photos App (Gallery) -->
+    <div class="app-page" id="app-photos" onclick="goHome()">
+        <div class="app-header">
+            <span>보관함</span>
+            <span>보관함 사진</span>
+            <span>선택</span>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">🏞️</div>
+            <div class="gallery-item">🏙️</div>
+            <div class="gallery-item">🌅</div>
+            <div class="gallery-item">🌌</div>
+            <div class="gallery-item">🐱</div>
+            <div class="gallery-item">🐶</div>
+        </div>
+        <div style="margin-top:auto; text-align:center; padding-bottom:20px; color:#8e8e93; font-size:12px;">
+            화면을 터치하면 홈으로 돌아갑니다
+        </div>
+    </div>
+
+    <!-- Notes App -->
+    <div class="app-page" id="app-notes" onclick="goHome()">
+        <div class="app-header" style="color:#ffd60a;">
+            <span>＜ 폴더</span>
+            <span style="color:#fff;">메모</span>
+            <span>📝</span>
+        </div>
+        <div>
+            <div class="note-item">
+                <div style="font-weight: 600;">아이폰 웹 시뮬레이터</div>
+                <div style="font-size: 13px; color: #8e8e93; margin-top: 4px;">10:24 AM • 작성된 메모 없음</div>
+            </div>
+        </div>
+        <div style="margin-top:auto; text-align:center; padding-bottom:20px; color:#8e8e93; font-size:12px;">
+            화면을 터치하면 홈으로 돌아갑니다
+        </div>
+    </div>
+
+    <!-- Phone App -->
+    <div class="app-page" id="app-phone" onclick="goHome()">
+        <div class="app-header">
+            <span></span>
+            <span>키패드</span>
+            <span></span>
+        </div>
+        <div class="keypad-grid">
+            <div class="key-btn">1</div>
+            <div class="key-btn">2</div>
+            <div class="key-btn">3</div>
+            <div class="key-btn">4</div>
+            <div class="key-btn">5</div>
+            <div class="key-btn">6</div>
+            <div class="key-btn">7</div>
+            <div class="key-btn">8</div>
+            <div class="key-btn">9</div>
+            <div class="key-btn">*</div>
+            <div class="key-btn">0</div>
+            <div class="key-btn">#</div>
+        </div>
+        <div style="display:flex; justify-content:center; margin-top:10px;">
+            <div class="key-btn" style="background:#30d158; font-size:28px;">📞</div>
+        </div>
+        <div style="margin-top:auto; text-align:center; padding-bottom:20px; color:#8e8e93; font-size:12px;">
             화면을 터치하면 홈으로 돌아갑니다
         </div>
     </div>

@@ -722,7 +722,7 @@
                 <div>
                     <div style="font-weight:600; display:flex; align-items:center; gap:6px;">
                         쿠죠 아키라
-                        <span style="width:8px; height:8px; background:#0a84ff; border-radius:50%;"></span>
+                        <span id="unread-dot-akira" style="width:8px; height:8px; background:#0a84ff; border-radius:50%;"></span>
                     </div>
                     <div style="font-size:13px; color:#8e8e93; margin-top:3px;">뭐 해?</div>
                 </div>
@@ -985,7 +985,7 @@
 
         for(let d = 1; d <= lastDate; d++) {
             const isToday = (today.getFullYear() === year && today.getMonth() === month && today.getDate() === d);
-            const isEvent = (month === 10 && d === 30); // 11월 30일 생일 이벤트
+            const isEvent = (month === 10 && d === 30);
             const dayOfWeek = new Date(year, month, d).getDay();
             const colorStyle = dayOfWeek === 0 ? 'color:#ff3b30;' : '';
 
@@ -1008,8 +1008,6 @@
 
     setInterval(updateClock, 1000);
     updateClock();
-    
-    // 페이지 첫 로드시 오늘 기준 달력 초기화
     renderCalendar(currentViewDate);
 
     function unlock() {
@@ -1032,7 +1030,6 @@
             document.querySelectorAll('.badge-phone').forEach(b => b.style.display = 'none');
         }
         if(id === 'cal') {
-            // 달력 앱을 열 때마다 오늘 날짜 기준 달로 초기화
             currentViewDate = new Date();
             renderCalendar(currentViewDate);
         }
@@ -1046,6 +1043,12 @@
     function openMsgChat(person) {
         document.querySelectorAll('#app-msg .sub-view').forEach(v => v.classList.remove('active'));
         document.getElementById(`msg-chat-${person}`).classList.add('active');
+
+        // 쿠죠 아키라와의 채팅방에 들어가면 목록의 파란색 읽음 점 제거
+        if(person === 'akira') {
+            const dot = document.getElementById('unread-dot-akira');
+            if(dot) dot.style.display = 'none';
+        }
     }
 
     function switchPhoneTab(tab) {

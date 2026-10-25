@@ -32,7 +32,7 @@
             overflow: hidden;
         }
 
-        /* Status Bar (왼쪽 시간, 오른쪽 4G와 배터리) */
+        /* Status Bar */
         .status-bar {
             height: 48px;
             display: flex;
@@ -132,7 +132,7 @@
             border: 1px solid rgba(255,255,255,0.15);
         }
 
-        /* App Grid - 화면 최상단 배치 */
+        /* App Grid */
         .app-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -149,7 +149,6 @@
             cursor: pointer;
         }
 
-        /* 실제 앱 아이콘 스타일 */
         .app-icon {
             width: 60px;
             height: 60px;
@@ -173,7 +172,6 @@
             position: relative;
         }
 
-        /* 앱별 실제 디자인 그래픽 */
         .icon-msg {
             background: linear-gradient(to bottom, #34c759, #248a3d);
         }
@@ -281,7 +279,6 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.9);
         }
 
-        /* 알림 배지 */
         .badge {
             position: absolute;
             top: -6px;
@@ -320,7 +317,6 @@
             flex-shrink: 0;
         }
 
-        /* Home Indicator Bar */
         .home-bar {
             width: 135px;
             height: 5px;
@@ -451,7 +447,7 @@
             cursor: pointer;
         }
 
-        /* Dynamic Calendar Grid UI */
+        /* Calendar Grid UI */
         .calendar-container {
             padding: 16px;
             color: #fff;
@@ -472,11 +468,15 @@
             background: #1c1c1e;
             color: #0a84ff;
             border: none;
-            padding: 6px 14px;
-            border-radius: 12px;
-            font-size: 14px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 18px;
             font-weight: 600;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .days-grid {
             display: grid;
@@ -610,7 +610,7 @@
 <body>
 
 <div class="phone-screen">
-    <!-- Status Bar (왼쪽 시간, 오른쪽 4G와 배터리) -->
+    <!-- Status Bar -->
     <div class="status-bar">
         <span id="time" style="font-weight: 600;">오후 1:13</span>
         <div class="dynamic-island"></div>
@@ -635,7 +635,7 @@
         <div style="margin-top: auto; margin-bottom: 35px; opacity: 0.7; font-size: 13px;">화면을 터치하여 잠금 해제</div>
     </div>
 
-    <!-- Home Apps (최상단 밀착 배치) -->
+    <!-- Home Apps -->
     <div class="app-grid">
         <div class="app-item" onclick="openApp('msg')">
             <div class="app-icon icon-msg">
@@ -677,7 +677,7 @@
         </div>
     </div>
 
-    <!-- Dock (하단 앱 영역) -->
+    <!-- Dock -->
     <div class="dock">
         <div class="app-item" onclick="openApp('phone')">
             <div class="app-icon icon-phone">
@@ -865,7 +865,7 @@
 
     <!-- Dynamic Calendar App -->
     <div class="app-page" id="app-cal">
-        <div class="app-header" style="color:#ff453a;">
+        <div class="app-header" style="color:#ff3b30;">
             <span onclick="goHome()" style="cursor:pointer; font-weight:normal; color:#0a84ff;">＜ 홈</span>
             <span style="color:#fff;">달력</span>
             <span>➕</span>
@@ -873,7 +873,7 @@
         <div class="calendar-container">
             <div class="cal-nav-bar">
                 <div class="cal-header-title" id="cal-month-title">10월</div>
-                <button class="cal-nav-btn" onclick="nextCalendarMonth()">다음 달(11월) ＞</button>
+                <button class="cal-nav-btn" onclick="nextCalendarMonth()">＞</button>
             </div>
             <div class="days-grid" id="cal-grid-content">
                 <!-- 달력 날짜 그리드가 동적으로 생성됩니다 -->
@@ -948,13 +948,11 @@
         document.getElementById('time').innerText = `${ampm} ${h}:${m}`;
         document.getElementById('lockTime').innerText = `${String(now.getHours()).padStart(2, '0')}:${m}`;
 
-        // 잠금 화면 날짜 실시간 업데이트
         const month = now.getMonth() + 1;
         const date = now.getDate();
         const dayStr = korDaysArr[now.getDay()];
         document.getElementById('lockDate').innerText = `${month}월 ${date}일 ${dayStr}`;
 
-        // 달력 아이콘 실시간 반영
         const dayCode = daysArr[now.getDay()];
         document.getElementById('icon-cal-day').innerText = dayCode;
         document.getElementById('icon-cal-date').innerText = date;
@@ -1053,7 +1051,6 @@
         document.getElementById(`phone-${tab}`).classList.add('active');
         event.currentTarget.classList.add('active');
 
-        // 최근 통화 탭 터치 시 탭 알림 배지 삭제
         if(tab === 'recents') {
             document.querySelectorAll('.badge-recents-tab').forEach(b => b.style.display = 'none');
         }

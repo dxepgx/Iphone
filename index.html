@@ -132,12 +132,12 @@
             border: 1px solid rgba(255,255,255,0.15);
         }
 
-        /* App Grid - 상단 배치 */
+        /* App Grid - 화면 맨 상단(Top) 배치 */
         .app-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 16px 12px;
-            padding: 10px 20px;
+            padding: 4px 20px 0 20px;
             align-self: flex-start;
             width: 100%;
         }
@@ -149,7 +149,7 @@
             cursor: pointer;
         }
 
-        /* 실제 앱 아이콘 스타일 (이모지 대체 및 입체 그래픽) */
+        /* 실제 앱 아이콘 스타일 */
         .app-icon {
             width: 60px;
             height: 60px;
@@ -159,7 +159,8 @@
             justify-content: center;
             position: relative;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            overflow: hidden;
+            /* 배지가 아이콘 바깥으로 잘리지 않게 overflow 영역 해제 */
+            overflow: visible !important; 
         }
 
         /* 앱별 실제 디자인 그래픽 */
@@ -270,21 +271,23 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.9);
         }
 
+        /* 알림 배지가 잘리지 않도록 아이콘 바깥 우측 상단으로 배치 */
         .badge {
             position: absolute;
-            top: -4px;
-            right: -4px;
+            top: -6px;
+            right: -6px;
             background: #ff3b30;
             color: #fff;
             font-size: 10px;
             font-weight: 700;
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid rgba(0,0,0,0.2);
+            border: 2px solid rgba(0,0,0,0.3);
+            z-index: 10;
         }
 
         /* Dock Bar */
@@ -565,20 +568,20 @@
 <body>
 
 <div class="phone-screen">
-    <!-- Status Bar (실시간 현재 시간 반영) -->
+    <!-- Status Bar -->
     <div class="status-bar">
         <div class="status-left">
             <span>5G</span>
             <div class="battery-box"><div class="battery-level"></div></div>
         </div>
         <div class="dynamic-island"></div>
-        <span id="time" style="font-weight: 600;">오후 12:32</span>
+        <span id="time" style="font-weight: 600;">오후 12:49</span>
     </div>
 
     <!-- Lock Screen -->
     <div class="lock-screen" id="lockScreen" onclick="unlock()">
         <div class="lock-date" id="lockDate">10월 26일 월요일</div>
-        <div class="lock-time" id="lockTime">12:32</div>
+        <div class="lock-time" id="lockTime">12:49</div>
         <div class="noti-card">
             <div style="font-size: 12px; opacity: 0.8; margin-bottom:4px; display:flex; justify-content:space-between;">
                 <span>💬 메시지 • 방금 전</span>
@@ -590,7 +593,7 @@
         <div style="margin-top: auto; margin-bottom: 35px; opacity: 0.7; font-size: 13px;">화면을 터치하여 잠금 해제</div>
     </div>
 
-    <!-- Home Apps (맨 위 정렬 및 실제 앱 아이콘 UI 적용) -->
+    <!-- Home Apps (맨 위 상단 배치) -->
     <div class="app-grid">
         <div class="app-item" onclick="openApp('msg')">
             <div class="app-icon icon-msg">
@@ -943,4 +946,3 @@
 </script>
 </body>
 </html>
-

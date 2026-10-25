@@ -132,7 +132,7 @@
             border: 1px solid rgba(255,255,255,0.15);
         }
 
-        /* App Grid - 화면 맨 최상단 바짝 밀착 배치 */
+        /* App Grid - 화면 맨 상단 바짝 밀착 배치 */
         .app-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -149,7 +149,7 @@
             cursor: pointer;
         }
 
-        /* 실제 앱 아이콘 스타일 (overflow를 visible로 하여 배지가 잘리지 않음) */
+        /* 실제 앱 아이콘 스타일 (알림 배지가 잘리지 않도록 overflow visible 적용) */
         .app-icon {
             width: 60px;
             height: 60px;
@@ -162,7 +162,6 @@
             overflow: visible !important;
         }
 
-        /* 앱별 실제 디자인 그래픽 내부 클리핑 컨테이너 */
         .icon-content {
             width: 100%;
             height: 100%;
@@ -174,6 +173,7 @@
             position: relative;
         }
 
+        /* 앱별 실제 디자인 그래픽 */
         .icon-msg {
             background: linear-gradient(to bottom, #34c759, #248a3d);
         }
@@ -281,7 +281,7 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.9);
         }
 
-        /* 알림 배지가 잘리지 않도록 바깥쪽에 위치 */
+        /* 알림 배지 (안 잘리도록 바깥쪽에 배치) */
         .badge {
             position: absolute;
             top: -6px;
@@ -607,14 +607,14 @@
         <div style="margin-top: auto; margin-bottom: 35px; opacity: 0.7; font-size: 13px;">화면을 터치하여 잠금 해제</div>
     </div>
 
-    <!-- Home Apps (최상단 밀착 배치) -->
+    <!-- Home Apps (최상단 바짝 밀착 배치) -->
     <div class="app-grid">
         <div class="app-item" onclick="openApp('msg')">
             <div class="app-icon icon-msg">
                 <div class="icon-content">
                     <div class="icon-msg-inner"></div>
                 </div>
-                <div class="badge" id="home-badge-msg">2</div>
+                <div class="badge badge-msg">2</div>
             </div>
             <span class="app-label">메시지</span>
         </div>
@@ -649,12 +649,12 @@
         </div>
     </div>
 
-    <!-- Dock -->
+    <!-- Dock (하단 앱 영역) -->
     <div class="dock">
         <div class="app-item" onclick="openApp('phone')">
-            <div class="app-icon icon-phone" style="font-size:26px;">
+            <div class="app-icon icon-phone">
                 <div class="icon-content" style="font-size:26px;">📞</div>
-                <div class="badge" id="home-badge-phone">1</div>
+                <div class="badge badge-phone">1</div>
             </div>
         </div>
         <div class="app-item" onclick="openApp('msg')">
@@ -662,7 +662,7 @@
                 <div class="icon-content">
                     <div class="icon-msg-inner"></div>
                 </div>
-                <div class="badge">2</div>
+                <div class="badge badge-msg">2</div>
             </div>
         </div>
         <div class="app-item" onclick="openApp('cal')">
@@ -947,11 +947,12 @@
         const el = document.getElementById(`app-${id}`);
         if(el) el.classList.add('active');
 
+        // 위쪽과 아래쪽(Dock)에 있는 모든 동일 앱 배지를 동기화하여 동시에 제거
         if(id === 'msg') {
-            document.querySelectorAll('#home-badge-msg').forEach(b => b.style.display = 'none');
+            document.querySelectorAll('.badge-msg').forEach(b => b.style.display = 'none');
         }
         if(id === 'phone') {
-            document.getElementById('home-badge-phone').style.display = 'none';
+            document.querySelectorAll('.badge-phone').forEach(b => b.style.display = 'none');
         }
     }
 
@@ -974,3 +975,4 @@
 </script>
 </body>
 </html>
+

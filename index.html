@@ -248,7 +248,7 @@
             border-radius: 50%;
         }
 
-        /* 진짜 메모 앱 아이콘 디자인 */
+        /* 메모 앱 아이콘 */
         .icon-notes {
             background: #fbfbfa;
             flex-direction: column;
@@ -266,7 +266,7 @@
             padding: 4px 6px;
         }
 
-        /* 진짜 전화 앱 아이콘 디자인 (흰색 배경 없음) */
+        /* 전화 앱 아이콘 */
         .icon-phone {
             background: linear-gradient(to bottom, #34c759, #248a3d);
         }
@@ -396,6 +396,8 @@
             font-size: 26px;
             margin-bottom: 6px;
         }
+        
+        /* 글자 길이에 맞춰 알맞게 줄어드는 자연스러운 말풍선 디자인 */
         .msg-bubble-left {
             align-self: flex-start;
             background: #262628;
@@ -403,6 +405,7 @@
             padding: 10px 14px;
             border-radius: 18px;
             border-bottom-left-radius: 4px;
+            width: fit-content;
             max-width: 78%;
             font-size: 15px;
             line-height: 1.4;
@@ -415,11 +418,13 @@
             padding: 10px 14px;
             border-radius: 18px;
             border-bottom-right-radius: 4px;
+            width: fit-content;
             max-width: 78%;
             font-size: 15px;
             line-height: 1.4;
             margin-top: 6px;
         }
+
         .msg-input-bar {
             margin-top: auto;
             margin-bottom: 10px;
@@ -762,7 +767,7 @@
                 <div class="msg-bubble-right">네?</div>
 
                 <div class="msg-date-header">오늘</div>
-                <div id="dynamic-akira-msg-box">
+                <div id="dynamic-akira-msg-box" style="display:flex; flex-direction:column;">
                     <div class="msg-bubble-left">하야시 군</div>
                 </div>
                 
@@ -1117,4 +1122,3 @@
 </script>
 </body>
 </html>
-
